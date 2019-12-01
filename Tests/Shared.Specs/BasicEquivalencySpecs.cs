@@ -45,7 +45,7 @@ namespace FluentAssertions.Specs
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected subject to be <null>, but found { }*");
         }
-
+        
         [Fact]
         public void When_comparing_nested_collection_with_a_null_value_it_should_fail_with_the_correct_message()
         {
