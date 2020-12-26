@@ -892,7 +892,7 @@ namespace FluentAssertions.Specs
             trackingDictionary.Should().NotBeEmpty();
 
             // Assert
-            trackingDictionary.Enumerator.LoopCount.Should().Be(1);
+            trackingDictionary.Enumerator.LoopCount.Should().Be(0);
         }
 
         [Fact]
