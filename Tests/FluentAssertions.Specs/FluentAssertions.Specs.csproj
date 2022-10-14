@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>FluentAssertions.NetCore20.Specs</AssemblyName>
     <RootNamespace>FluentAssertions.NetCore20.Specs</RootNamespace>
     <LangVersion>default</LangVersion>
@@ -18,5 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Src\FluentAssertions\FluentAssertions.csproj" />
   </ItemGroup>
-  <Import Project="..\Shared.Specs\Shared.Specs.projitems" Label="Shared" />
 </Project>
