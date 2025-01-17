@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions.Common;
+using ITimer = FluentAssertions.Common.ITimer;
 
 namespace FluentAssertions.Specs
 {

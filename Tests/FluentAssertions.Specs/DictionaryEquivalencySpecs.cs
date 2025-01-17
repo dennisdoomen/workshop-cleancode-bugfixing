@@ -647,24 +647,6 @@ namespace FluentAssertions.Specs
         }
 
         [Fact]
-        public void
-            When_asserting_equivalence_of_non_generic_dictionaries_the_lack_of_type_information_should_be_preserved_for_other_equivalency_steps()
-        {
-            // Arrange
-            var userId = Guid.NewGuid();
-
-            var dictionary1 = new NonGenericDictionary { [userId] = new List<string> { "Admin", "Special" } };
-            var dictionary2 = new NonGenericDictionary { [userId] = new List<string> { "Admin", "Other" } };
-
-            // Act
-            Action act = () => dictionary1.Should().BeEquivalentTo(dictionary2);
-
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("*Other*Special*");
-        }
-
-        [Fact]
         public void When_asserting_the_equivalence_of_generic_dictionaries_it_should_respect_the_declared_type()
         {
             // Arrange

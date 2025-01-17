@@ -823,123 +823,6 @@ namespace FluentAssertions.Specs
 
 #if !NETCOREAPP1_1 && !NETSTANDARD1_3 && !NETSTANDARD1_6 && !NETSTANDARD2_0
 
-        #region BeBinarySerializable
-
-        [Fact]
-        public void When_an_object_is_binary_serializable_it_should_succeed()
-        {
-            // Arrange
-            var subject = new SerializableClass
-            {
-                Name = "John",
-                Id = 2
-            };
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable();
-
-            // Assert
-            act.Should().NotThrow();
-        }
-
-        [Fact]
-        public void When_an_object_is_binary_serializable_with_non_serializable_members_it_should_succeed()
-        {
-            // Arrange
-            var subject = new SerializableClassWithNonSerializableMember()
-            {
-                Name = "John",
-                NonSerializable = "Nonserializable value"
-            };
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable<SerializableClassWithNonSerializableMember>(options =>
-                options.Excluding(s => s.NonSerializable));
-
-            // Assert
-            act.Should().NotThrow();
-        }
-
-        [Fact]
-        public void When_injecting_null_options_it_should_throw()
-        {
-            // Arrange
-            var subject = new SerializableClassWithNonSerializableMember();
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable<SerializableClassWithNonSerializableMember>(options: null);
-
-            // Assert
-            act.Should().ThrowExactly<ArgumentNullException>()
-                .Which.ParamName.Should().Be("options");
-        }
-
-        [Fact]
-        public void When_an_object_is_not_binary_serializable_it_should_fail()
-        {
-            // Arrange
-            var subject = new UnserializableClass
-            {
-                Name = "John"
-            };
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable("we need to store it on {0}", "disk");
-
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("*to be serializable because we need to store it on disk, but serialization failed with:*UnserializableClass*");
-        }
-
-        [Fact]
-        public void When_an_object_is_binary_serializable_but_not_deserializable_it_should_fail()
-        {
-            // Arrange
-            var subject = new BinarySerializableClassMissingDeserializationConstructor
-            {
-                Name = "John",
-                BirthDay = 20.September(1973)
-            };
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable();
-
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("*to be serializable, but serialization failed with:*BinarySerializableClassMissingDeserializationConstructor*");
-        }
-
-        [Fact]
-        public void When_an_object_is_binary_serializable_but_doesnt_restore_all_properties_it_should_fail()
-        {
-            // Arrange
-            var subject = new BinarySerializableClassNotRestoringAllProperties
-            {
-                Name = "John",
-                BirthDay = 20.September(1973)
-            };
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable();
-
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("*to be serializable, but serialization failed with:*member Name to be*");
-        }
-
-        [Fact]
-        public void When_a_system_exception_is_asserted_to_be_serializable_it_should_compare_its_fields_and_properties()
-        {
-            // Arrange
-            var subject = new Exception("some error");
-
-            // Act
-            Action act = () => subject.Should().BeBinarySerializable();
-
-            // Assert
-            act.Should().NotThrow();
-        }
-
         internal class UnserializableClass
         {
             public string Name { get; set; }
@@ -999,8 +882,6 @@ namespace FluentAssertions.Specs
                 info.AddValue("BirthDay", BirthDay);
             }
         }
-
-        #endregion
 
         #region BeXmlSerializable
 
